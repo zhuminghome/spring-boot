@@ -1,0 +1,23 @@
+<configuration scan="false" scanPeriod="60000" debug="false">
+ 
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger - %msg%n</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>DENY</onMatch>
+            <onMismatch>ACCEPT</onMismatch>
+        </filter>
+    </appender>
+     
+    <logger name="java" additivity="false" />
+    <logger name="java.lang" level="DEBUG">
+        <appender-ref ref="STDOUT" />
+    </logger>
+     
+    <root level="INFO">
+        <appender-ref ref="STDOUT" />
+    </root>
+     
+</configuration>
