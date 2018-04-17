@@ -48,14 +48,10 @@ public class MapController {
 		System.out.println(list);
 		List<Map<String,Object>>  listMap= new ArrayList<Map<String,Object>>();
 		for(RegionDo re1 : list){
-//			String list1 = re1.getLabel();
-			//通过key值查询
 			List<RegionDo> list11  = Staticsdata.getRegion();
 			Map<String,Object> retMap1 = new HashMap<String,Object>();
 			List<Map<String,Object>>  retLst1= new ArrayList<Map<String,Object>>();
 			for(RegionDo re2 : list11){
-				List<RegionDo> list2 = re2.getChildren();
-				List<Map<String,Object>>  retLst2= new ArrayList<Map<String,Object>>();
 				Map<String,Object> retMap2 = new HashMap<String,Object>();
 				retMap2.put("label", re2.getLabel());
 				retMap2.put("value", re2.getValue());
