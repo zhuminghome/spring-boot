@@ -7,7 +7,6 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ekrea.utils.RedisUtil;
 
 /**
 * @author zming.BlueOcean 
@@ -26,21 +25,42 @@ public class RedisController {
 	redisTemplate.opsForList();//操作list
 	redisTemplate.opsForSet();//操作set
 	redisTemplate.opsForZSet();//操作有序set
-*/	@SuppressWarnings("rawtypes")
+*/	
 	@Autowired
-    protected RedisTemplate redisTemplate;
-	@SuppressWarnings("unchecked")
+    protected RedisTemplate<String, String> redisTemplate;
 	@RequestMapping("get")
 	public Object getRedis() {
-		redisTemplate.opsForList().rightPush("like", "{ \"total\": 1,\"rows\": [{\"casNum\": \"1031-47-6\" }]}");
-		redisTemplate.opsForValue().set("name", "zhuming", 50, TimeUnit.SECONDS);
+		redisTemplate.opsForValue();//操作String
+		//set:设置String的值
+		redisTemplate.opsForValue().set("name", "zhuming");
+		//append:追加字符串
+		redisTemplate.opsForValue().append("name", "zhuming");
+		//setIfAbsent：判断之前是否存在，存在false,不存在true,并且插。
+		System.out.println(redisTemplate.opsForValue().setIfAbsent("name", "zhuming"));
+//		System.out.println(redisTemplate.opsForValue().setIfAbsent("name1", "zhuming1231"));
+		
+		
 		redisTemplate.opsForHash();//操作hash
+		
+		
+		
 		redisTemplate.opsForList();//操作list
+//		redisTemplate.opsForList().rightPush("like", "{ \"total\": 1,\"rows\": [{\"casNum\": \"1031-47-6\" }]}");
+		//range展示所有的redisLIST中的数据
+		System.out.println(redisTemplate.opsForList().range("like", 0, -1));
+		//获取list的大小
+		System.out.println(redisTemplate.opsForList().size("like"));
+		
+		
 		redisTemplate.opsForSet();//操作set
+		
+		
+		
+		
 		redisTemplate.opsForZSet();//操作有序set
 		
 		Object a =	redisTemplate.opsForValue().get("name");
 		System.out.println(a);
-		return redisTemplate.opsForList().rightPop("like");	
+		return null;	
 	}
 }
